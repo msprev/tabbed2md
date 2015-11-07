@@ -16,6 +16,7 @@ def main():
 def process(in_lines):
     out_lines = remove_cr(in_lines)
     out_lines = split_by_col(out_lines)
+    out_lines = remove_whitespace(out_lines)
     out_lines = add_missing_cols(out_lines)
     max_lens = find_max_entries(out_lines)
     out_lines = add_spaces(out_lines, max_lens)
@@ -29,6 +30,10 @@ def remove_cr(in_lines):
 
 def split_by_col(in_lines):
     out_lines = [j.split('\t') for j in in_lines]
+    return out_lines
+
+def remove_whitespace(in_lines):
+    out_lines = [[i.strip() for i in j] for j in in_lines]
     return out_lines
 
 def add_missing_cols(in_lines):

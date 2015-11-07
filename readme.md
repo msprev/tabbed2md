@@ -12,7 +12,7 @@ You want to paste data from an Excel spreadsheet into a markdown document.
     Unpleasant text wrangling follows.
     tabbed2md wrangles text so you don't have to.
 
-Pipe data through tabbed2md.
+Pipe data through `tabbed2md.py`.
     tabbed2md takes tab-delimited lines of text as input.
     tabbed2md gives a [pandoc][pandoc] markdown formatted table as output.
 
