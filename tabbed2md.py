@@ -5,6 +5,8 @@ import sys
 
 # how many spaces between each column
 PADDING = 3
+# minimum width for a column
+MIN_WIDTH = 3
 
 def main():
     in_lines = sys.stdin.readlines()
@@ -51,10 +53,10 @@ def find_max_entries(in_lines):
     max_lens = dict()
     for j in in_lines:
         for n, i in enumerate(j):
-            current = max_lens.get(n, 0)
+            current = max_lens.get(n, MIN_WIDTH)
             max_lens[n] = max(current, len(i))
     # convert dict to a list...
-    l = [0] * len(max_lens)
+    l = [MIN_WIDTH] * len(max_lens)
     for key in max_lens:
         l[key] = max_lens[key]
     return l
