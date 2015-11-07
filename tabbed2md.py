@@ -5,8 +5,8 @@ import sys
 
 # how many spaces between each column
 PADDING = 3
-# minimum width for a column
-MIN_WIDTH = 3
+# extra padding added inside each column on right
+OVERHANG = 2
 
 def main():
     in_lines = sys.stdin.readlines()
@@ -53,12 +53,14 @@ def find_max_entries(in_lines):
     max_lens = dict()
     for j in in_lines:
         for n, i in enumerate(j):
-            current = max_lens.get(n, MIN_WIDTH)
+            current = max_lens.get(n, 1)
             max_lens[n] = max(current, len(i))
     # convert dict to a list...
-    l = [MIN_WIDTH] * len(max_lens)
+    l = [1] * len(max_lens)
     for key in max_lens:
         l[key] = max_lens[key]
+    # add overhang to each column
+    l = [i + OVERHANG for i in l]
     return l
 
 def add_spaces(in_lines, max_lens):
