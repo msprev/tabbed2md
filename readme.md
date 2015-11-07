@@ -1,6 +1,6 @@
 # tabbed2md
 
-You want to paste data from an Excel spreadsheet and into a markdown document.
+You want to paste data from an Excel spreadsheet into a markdown document.
     Excel provides its data delimited by tabs.
     Markdown tables are not delimited by tabs.
     Unpleasant text wrangling follows.

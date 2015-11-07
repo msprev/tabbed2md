@@ -3,7 +3,7 @@
 
 import sys
 
-# how many spaces of between each column
+# how many spaces between each column
 PADDING = 3
 
 def main():
