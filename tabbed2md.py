@@ -9,11 +9,12 @@ PADDING = 3
 OVERHANG = 2
 
 def main():
+    out_lines = list()
     in_lines = sys.stdin.readlines()
-    out_lines = process(in_lines)
-    if out_lines:
-        sys.stdout.writelines(out_lines)
-        sys.stdout.flush()
+    if in_lines:
+        out_lines = process(in_lines)
+    sys.stdout.writelines(out_lines)
+    sys.stdout.flush()
 
 def process(in_lines):
     out_lines = remove_cr(in_lines)
@@ -49,19 +50,13 @@ def add_missing_cols(in_lines):
     return out_lines
 
 def find_max_entries(in_lines):
-    # start building a dict as it's easier to add new elements in middle
-    max_lens = dict()
+    max_lens = [1] * len(in_lines[0])
     for j in in_lines:
         for n, i in enumerate(j):
-            current = max_lens.get(n, 1)
-            max_lens[n] = max(current, len(i))
-    # convert dict to a list...
-    l = [1] * len(max_lens)
-    for key in max_lens:
-        l[key] = max_lens[key]
+            max_lens[n] = max(max_lens[n], len(i))
     # add overhang to each column
-    l = [i + OVERHANG for i in l]
-    return l
+    max_lens = [i + OVERHANG for i in max_lens]
+    return max_lens
 
 def add_spaces(in_lines, max_lens):
     out_lines = list()
