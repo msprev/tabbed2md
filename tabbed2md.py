@@ -3,11 +3,6 @@
 
 import sys
 
-# how many spaces between each column
-PADDING = 3
-# extra padding added inside each column on right
-OVERHANG = 2
-
 def main():
     out_lines = list()
     in_lines = sys.stdin.readlines()
@@ -52,13 +47,21 @@ def find_max_lens(in_lines):
     for j in in_lines:
         for n, i in enumerate(j):
             max_lens[n] = max(max_lens[n], len(i))
-    # add overhang to each column
-    max_lens = [i + OVERHANG for i in max_lens]
     return max_lens
 
 def write_pandoc(in_lines, max_lens):
     # write pandoc-style tables
     # http://pandoc.org/README.html#tables
+
+    # how many spaces between each column
+    PADDING = 3
+    # extra padding added inside each column on right
+    OVERHANG = 2
+
+    def add_overhang(max_lens):
+        # add overhang to each column
+        max_lens = [i + OVERHANG for i in max_lens]
+        return max_lens
 
     def pad_cells(in_lines, max_lens):
         out_lines = list()
@@ -68,7 +71,7 @@ def write_pandoc(in_lines, max_lens):
         return out_lines
 
     def delimit_start_end(in_lines, max_lens):
-        # add delimiters for pandoc tables
+        # add --- delimiters for pandoc tables
         d = ['-' * n for n in max_lens]
         out_lines = [d] + in_lines + [d]
         return out_lines
@@ -78,6 +81,7 @@ def write_pandoc(in_lines, max_lens):
         out_lines = [sep.join(j) + '\n' for j in in_lines]
         return out_lines
 
+    max_lens = add_overhang(max_lens)
     out_lines = pad_cells(in_lines, max_lens)
     out_lines = delimit_start_end(out_lines, max_lens)
     out_lines = rejoin(out_lines)
